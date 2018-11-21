@@ -1,6 +1,5 @@
 <template>
   <div>
-    <div>home-page</div>
     <song-list-recommend></song-list-recommend>
   </div>
 </template>
@@ -17,5 +16,4 @@ export default {
 </script>
 
 <style type="text/css">
-
 </style>
