@@ -17,7 +17,8 @@ Vue.use(Router)
 const routes = [
   { path: '/',
     component: musicHallNav,
-    alias: '/music-hall',
+    redirect: '/home-page',
+    // alias: '/music-hall',
     children: [
       {path: '/home-page', component: homePage},
       {path: '/singer', component: singer},

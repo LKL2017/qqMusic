@@ -4,7 +4,12 @@
     <div id="cover-container">
       <ul id="cover-ul">
         <li v-for="song in current_category">
-          <img class="single-cover" :src="song.coverImgUrl">
+          <a href="#">
+            <img class="single-cover" :src="song.coverImgUrl">
+            <div class="cover-mask">
+              <div class="play-btn"></div>
+            </div>
+          </a>
         </li>
       </ul>
       <div id="dot-index" @click="clickCircle">
@@ -34,7 +39,9 @@ export default {
       keywords: null,       //请求关键字 ，由songCat更新
       QUERY_TYPE: 1000,     //查询类型，这里的api文档中1000代表歌单
       current_offset: 0,    //当前图片偏移量
-      circle_index: 1       //当前小圆点导航索引
+      circle_index: 1,       //当前小圆点导航索引
+      COVER_SIZE: 180,
+      COVER_SPACE: 40
     }
   },
   computed: {
@@ -42,16 +49,22 @@ export default {
         return document.querySelectorAll("#cover-ul li").length;
       },
       sliderOffset: function () {
-        return 200 + 50
+        return this.COVER_SIZE + this.COVER_SPACE;
       },
       pageCount: function () {
         return this.LIMIT/this.SINGLE_PAGE
       }
   },
+  beforeMount () {
+
+  },
   mounted () {
     axios
       .get('http://localhost:3000/search?keywords=' + this.songCat + '&type=' + this.QUERY_TYPE + '&limit=' + this.LIMIT)
       .then(response => this.current_category = response.data.result.playlists);
+    // 计算width赋值
+    let cc = document.querySelector("#cover-container");
+    cc.style.width = ((this.COVER_SPACE + this.COVER_SIZE)*this.SINGLE_PAGE - this.COVER_SPACE) + "px";
     //生成小圆点导航
     let ul = document.querySelector("#dot-index");
     for(let i = 0;i<this.pageCount;i++){
@@ -159,7 +172,7 @@ export default {
 
 <style type="text/css">
   #cover-container {
-    width: 1200px;
+    /*width由js计算*/
     height: 300px;
     overflow-x: hidden;
     margin: 0 auto;
@@ -175,9 +188,11 @@ export default {
     transition: left 0.6s;
   }
   .single-cover {
-    width: 200px;
-    height: 200px;
-    margin-right: 50px;
+    width: 180px;
+    height: 180px;
+    margin-right: 40px;
+    transform: scale(1);
+    transition: all 0.5s;
   }
   #dot-index {
     display: flex;
@@ -201,23 +216,70 @@ export default {
     position: relative;
   }
   .control{
-    display: flex;
-    flex-direction: row;
-    position: absolute;
-    justify-content: space-between;
-    top: 80px;
-    width: 100%;
+    /*display: flex;*/
+    /*flex-direction: row;*/
+    /*position: absolute;*/
+    /*justify-content: space-between;*/
+    /*top: 80px;*/
+    /*width: 100%;*/
   }
   .prev{
-    background: url("../../assets/prev.svg") no-repeat;
+    background: url("../../assets/left_arrow.svg") no-repeat;
     width: 70px;
     height: 70px;
-    margin-left: -20px;
+    float: left;
+    position: relative;
+    bottom: 200px;
+    cursor: pointer;
+    background-color:rgba(200,180,180,0.2);
+    transition: background-color 0.4s;
+    display: none;
   }
   .next{
-    background: url("../../assets/next.svg") no-repeat;
+    background: url("../../assets/right_arrow.svg") no-repeat;
     width: 70px;
     height: 70px;
-    margin-right: -20px;
+    float: right;
+    position: relative;
+    bottom: 200px;
+    cursor: pointer;
+    background-color:rgba(200,180,180,0.2);
+    transition: background-color 0.4s;
+    display: none;
+  }
+  .prev:hover,.next:hover {
+    background-color: rgba(200,180,180,0.5);
+  }
+  #cover-ul li {
+    position: relative;
+  }
+  .cover-mask {
+    width: 180px;
+    height: 180px;
+    position: absolute;
+    top: 0;
+    transition: background-color 0.5s;
+  }
+  .play-btn {
+    width: 48px;
+    height: 48px;
+    background: url("../../assets/play.svg") no-repeat;
+    position: relative;
+    left: 50%;
+    top: 50%;
+    margin-left: -24px;
+    margin-top: -24px;
+    opacity: 0;
+    transition: opacity 0.5s;
+  }
+  .cover-mask:hover {
+    background-color: rgba(20,20,20,0.3);
+  }
+  .cover-mask:hover .play-btn {
+    opacity: 1;
+  }
+  .single-cover:hover {
+    transform: scale(1.4);
+    transition: all 0.5s;
   }
 </style>

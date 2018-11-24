@@ -9,7 +9,7 @@
         </li>
       </ul>
       <!--根据选择的歌单分类展示对应歌单，绑定事件在歌单按钮上-->
-      <div>
+      <div class="my-slider">
         <!--轮播组件-->
         <my-slider :songCat="current_cat"></my-slider>
       </div>
@@ -62,12 +62,6 @@ export default {
 </script>
 
 <style type="text/css">
-  h2 {
-    letter-spacing: 10px;
-    position: relative;
-    top: 24px;
-    margin-bottom: 50px;
-  }
   .tag-title {
     width: 400px;
     margin: 0 auto;
@@ -81,15 +75,8 @@ export default {
   .tag-title li {
     list-style: none;
   }
-  .tag-title a {
-    text-decoration: none;
-    color: #000;
-
-  }
-  .tag-title a:hover {
-       color: #40c672;
-     }
   .song-recommend {
     background: rgb(246,246,246);
   }
+
 </style>

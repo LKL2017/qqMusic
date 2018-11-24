@@ -32,5 +32,20 @@ export default {
 #main-nav{
   display: flex;
   flex-direction: row;
+  border-bottom: 1px solid #eee;
+}
+h2 {
+  letter-spacing: 10px;
+  position: relative;
+  top: 24px;
+  margin-bottom: 50px;
+}
+a {
+  text-decoration: none;
+  color: #000;
+
+}
+a:hover {
+  color: #40c672;
 }
 </style>

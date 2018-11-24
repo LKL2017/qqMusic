@@ -13,7 +13,7 @@
         <router-link to="/ticketing">票务</router-link>
       </ul>
     </div>
-    <router-view></router-view>
+    <router-view/>
   </div>
 </template>
 
@@ -27,6 +27,7 @@ export default {
   #music-hall-div ul {
     display: flex;
     flex-direction: row;
+    justify-content: center;
   }
   #music-hall-div ul a{
     margin-right: 24px;
