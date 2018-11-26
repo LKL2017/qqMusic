@@ -11,7 +11,7 @@ import radio from '../components/music-hall/radio'
 import musciVideo from '../components/music-hall/MV'
 import digitalAlbum from '../components/music-hall/digital-album'
 import ticketing from '../components/music-hall/ticketing'
-
+import singerDetail from '../components/singer/singer-detail'
 Vue.use(Router)
 
 const routes = [
@@ -22,6 +22,7 @@ const routes = [
     children: [
       {path: '/home-page', component: homePage},
       {path: '/singer', component: singer},
+      {path: '/singer/:sid', name: 'singer-detail', component: singerDetail, props: true},
       {path: '/album', component: album},
       {path: '/leader-board', component: leaderBoard},
       {path: '/songlist-class', component: songlistClass},

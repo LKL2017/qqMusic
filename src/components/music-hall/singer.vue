@@ -23,7 +23,11 @@
           <div class="single-img-container">
             <img :src="s.img1v1Url">
           </div>
-          <a href="#">{{s.name}}</a>
+          <a href="#" >
+            <router-link :to="{name: 'singer-detail', params: { sname: s.name,sid: s.id}}">
+              {{s.name}}
+            </router-link>
+          </a>
         </div>
       </div>
       <div class="q-offset" @click="changeChoice">
@@ -38,6 +42,7 @@
 <script>
 /* eslint semi: "error" */
 import axios from 'axios';
+
 export default {
   name: 'singer',
   props: ['tag'],
