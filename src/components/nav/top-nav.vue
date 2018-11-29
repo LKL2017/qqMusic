@@ -6,11 +6,11 @@
       </a>
     </div>
     <ul>
-      <router-link to="/">音乐馆</router-link>
-      <router-link to="/my-music">我的音乐</router-link>
-      <router-link to="">客户端</router-link>
-      <router-link to="">音乐号</router-link>
-      <router-link to="">VIP</router-link>
+      <li><router-link to="/home-page">音乐馆</router-link></li>
+      <li><router-link to="/my-music">我的音乐</router-link></li>
+      <li><router-link to="/client">客户端</router-link></li>
+      <li><router-link to="/musicBlog">音乐号</router-link></li>
+      <li><router-link to="/vip">VIP</router-link></li>
     </ul>
   </div>
 </template>
@@ -28,18 +28,27 @@ export default {
     width: 500px;
     float: left;
     height: 28px;
-    line-height: 28px;
+    list-style: none;
+    margin: 0;
+    line-height: 46px;
   }
   #top-nav ul a{
-    margin-right: 20px;
+    padding: 23px 10px;
     text-decoration: none;
   }
-  #top-nav ul a:visited{
-    color: #000;
-  }
+  /*#top-nav ul a:visited{*/
+    /*color: #000;*/
+  /*}*/
   #top-nav ul a:hover{
     color: #40c672;
     cursor: pointer;
+  }
+  #top-nav .router-link-active {
+    color: #fff;
+    background-color: #40c672;
+  }
+  #top-nav .router-link-active:hover {
+    color: #fff;
   }
   .logo {
     /*transform: scale(0.5);*/

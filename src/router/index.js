@@ -12,6 +12,7 @@ import musciVideo from '../components/music-hall/MV'
 import digitalAlbum from '../components/music-hall/digital-album'
 import ticketing from '../components/music-hall/ticketing'
 import singerDetail from '../components/singer/singer-detail'
+import detailTemplate from '../components/detail-template/detail-template'
 Vue.use(Router)
 
 const routes = [
@@ -23,7 +24,9 @@ const routes = [
       {path: '/home-page', component: homePage},
       {path: '/singer', component: singer},
       {path: '/singer/:sid', name: 'singer-detail', component: singerDetail, props: true},
+      {path: '/song/:soid', name: 'song-detail', component: detailTemplate, props: true},
       {path: '/album', component: album},
+      {path: '/album/:aid', name: 'album-detail', component: detailTemplate, props: true},
       {path: '/leader-board', component: leaderBoard},
       {path: '/songlist-class', component: songlistClass},
       {path: '/radio', component: radio},

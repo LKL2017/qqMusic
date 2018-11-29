@@ -5,18 +5,21 @@
       <search></search>
     </div>
     <router-view/>
+    <my-footer></my-footer>
   </div>
 </template>
 
 <script>
 import topNav from './components/nav/top-nav'
 import search from './components/search/search'
+import myFooter from './components/my-footer/my-footer'
 
 export default {
   name: 'App',
   components: {
     topNav,
-    search
+    search,
+    myFooter
   }
 }
 </script>

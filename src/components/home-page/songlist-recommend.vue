@@ -77,6 +77,7 @@ export default {
   }
   .song-recommend {
     background: rgb(246,246,246);
+    height: 480px;
   }
 
 </style>

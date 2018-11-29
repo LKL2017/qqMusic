@@ -10,13 +10,19 @@
           <!--<p>{{res.artist.briefDesc}}</p>-->
           <p>简介</p>
           <div>
-            <span>单曲:{{res.artist.musicSize}}</span>
-            <span>专辑:{{res.artist.albumSize}}</span>
-            <span>MV:{{res.artist.mvSize}}</span>
+            <span>单曲 <span>{{res.artist.musicSize}}</span></span>
+            <span>专辑 <span>{{res.artist.albumSize}}</span></span>
+            <span>MV <span>{{res.artist.mvSize}}</span></span>
           </div>
           <div class="btn">
-            <button>播放热门歌曲</button>
-            <button>关注</button>
+            <button>
+              <img src="../../assets/play_2.svg">
+              <span>播放热门歌曲</span>
+            </button>
+            <button>
+              <img src="../../assets/follow.svg">
+              <span>关注</span>
+            </button>
           </div>
         </div>
       </div>
@@ -28,13 +34,23 @@
         <div>
           <table class="songs-table">
             <tr>
+              <th></th>
               <th>歌曲</th>
               <th>专辑</th>
               <!--<td></td>-->
             </tr>
-            <tr v-for="content in hot_songs" :key="content.id">
-              <td>{{content.name}}</td>
-              <td>{{content.al.name}}</td>
+            <tr v-for="(content,index) in hot_songs" :key="content.id" class="s-t-content">
+              <td>{{index+1}}</td>
+              <td>
+                <router-link :to="{name: 'song-detail', params: {soid: content.id, detailType:'song'}}">
+                  {{content.name}}
+                </router-link>
+              </td>
+              <td>
+                <router-link :to="{name: 'album-detail', params: {alid: content.al.id}}" detailType="album">
+                  {{content.al.name}}
+                </router-link>
+              </td>
               <!--<td>222</td>-->
             </tr>
           </table>
@@ -55,7 +71,10 @@
         <info-display :mInfo="mv_info" iType="mv"></info-display>
       </div>
       <div class="simi-singer">
-        相似歌手
+        <div class="t">
+          <span>相似歌手</span>
+        </div>
+        <info-display sInfo="simi_info" iType="simi"></info-display>
       </div>
     </div>
   </div>
@@ -92,19 +111,22 @@ export default {
         }
       });
 
-    // 查询专辑信息
+    // 查询专辑信息 limit=5
     axios
       .get('http://localhost:3000/artist/album?id=' + this.sid + '&limit=5')
       .then(function (response) {
         that.album_info = response.data.hotAlbums;
       });
 
-    // 查询mv信息
+    // 查询mv信息 limit=5
     axios
       .get('http://localhost:3000/artist/mv?id=' + this.sid + '&limit=5')
       .then(function (response) {
         that.mv_info = response.data.mvs;
       });
+
+    // 查询相似歌手信息
+    // 需要登录信息，暂时不做
   }
 };
 </script>
@@ -119,7 +141,8 @@ export default {
     padding-bottom: 20px;
     min-width: 1200px;
     position: relative;
-    border-bottom: 1px solid silver;
+    background-color: rgba(240,240,240,0.4);
+    /*border-bottom: 1px solid silver;*/
   }
   /*.singer-brief::after {*/
     /*display: block;*/
@@ -140,23 +163,28 @@ export default {
     height: 220px;
   }
   .info {
-    margin-left: 260px;
+    margin-left: 280px;
     /*float: left;*/
     /*width: calc(100% - 200px);*/
     text-align: left;
-    background-color: aliceblue;
+    /*background-color: aliceblue;*/
   }
   .info p:nth-of-type(1) {
     font-size: 30px;
     margin-top: 20px;
   }
   .info span {
-    margin-right: 14px;
+    margin-right: 10px;
+  }
+  .info span span {
+    font-size: 24px;
+    padding-left: 4px;
+    font-weight: lighter;
   }
   .info .btn {
     margin-top: 20px;
   }
-  .singer-hot-song ,.singer-album,.singer-mv{
+  .singer-hot-song ,.singer-album,.singer-mv,.simi-singer{
     min-width: 1200px;
     margin: 0 auto;
   }
@@ -179,6 +207,12 @@ export default {
     font-weight: normal;
     color: #aaa;
   }
+  .s-t-content td:nth-of-type(1) {
+    width: 3%;
+  }
+  .s-t-content td:nth-of-type(2) {
+    width: 45%;
+  }
   .singer-hot-song .t{
     /*vertical-align: middle;*/
     height: 40px;
@@ -198,6 +232,11 @@ export default {
     content: '';
     clear: both;
   }
+  .simi-singer .t::after {
+    display: block;
+    content: '';
+    clear: both;
+  }
   .t span:nth-of-type(1){
     float: left;
     font-size: 22px;
@@ -209,5 +248,25 @@ export default {
     font-size: 14px;
     line-height: 40px;
     font-weight: bold;
+  }
+  .btn button img{
+    width: 18px;
+    vertical-align: middle;
+  }
+  .btn button span{
+    vertical-align: middle;
+  }
+  .btn button {
+    padding: 8px 16px;
+    margin-right: 20px;
+    cursor: pointer;
+  }
+  .btn button:nth-of-type(1){
+    background-color: #40c672;
+    color: #fff;
+    border: 1px solid #40c672;
+  }
+  .btn button:nth-of-type(2){
+    background-color: transparent;
   }
 </style>

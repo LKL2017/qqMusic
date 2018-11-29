@@ -4,12 +4,22 @@
     <div id="cover-container">
       <ul id="cover-ul">
         <li v-for="song in current_category">
-          <a href="#">
-            <img class="single-cover" :src="song.coverImgUrl">
-            <div class="cover-mask">
-              <div class="play-btn"></div>
-            </div>
-          </a>
+          <div class="sl-cover">
+            <a href="#">
+              <img class="single-cover" :src="song.coverImgUrl">
+              <div class="cover-mask">
+                <div class="play-btn"></div>
+              </div>
+            </a>
+          </div>
+          <div class="sl-name">
+            <span>{{song.name}}</span>
+          </div>
+          <div class="play-count">
+            <span>播放量：</span>
+            <span>{{parseInt(song.playCount/10000)}}</span>
+            <span>万</span>
+          </div>
         </li>
       </ul>
       <div id="dot-index" @click="clickCircle">
@@ -173,7 +183,7 @@ export default {
 <style type="text/css">
   #cover-container {
     /*width由js计算*/
-    height: 300px;
+    /*height: 300px;*/
     overflow-x: hidden;
     margin: 0 auto;
   }
@@ -252,6 +262,23 @@ export default {
   }
   #cover-ul li {
     position: relative;
+    /*display: flex;*/
+    /*flex-direction: column;*/
+  }
+  #cover-ul span {
+    font-size: 13px;
+  }
+  .sl-cover {
+    padding-bottom: 6px;
+  }
+  .sl-name, .play-count {
+    max-width: 180px;
+    text-align: left;
+    line-height: 16px;
+    padding-bottom: 4px;
+  }
+  .play-count{
+    color: #999;
   }
   .cover-mask {
     width: 180px;

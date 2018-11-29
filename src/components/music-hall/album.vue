@@ -1,11 +1,17 @@
 <template>
-  <div>album</div>
+  <div>album
+    <to-do></to-do>
+  </div>
 </template>
 
 <script>
-  export default {
-    name: 'album'
+import toDo from '../../components/todo-template/todo-template'
+export default {
+  name: 'album',
+  components: {
+    toDo
   }
+}
 </script>
 
 <style type="text/css">
