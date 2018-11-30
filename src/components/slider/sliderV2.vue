@@ -2,7 +2,7 @@
   <div class="slider-wrapper">
     <div class="slider-v2">
       <!--根据sType展示不同内容-->
-      <div class="slider-box" v-if="sType === 'CD'">
+      <div v-if="sType === 'CD'" class="slider-box">
         <!--每一屏的ul-->
         <ul class="extra-prev">
           <li v-for="exli in extraPrevCD" :key="exli.id">
@@ -45,7 +45,7 @@
 
 <script>
 /* eslint semi: "error" */
-import cdEl from '../../components/single-li-el/cd-el';
+import cdEl from '../single-el/cd-el';
 export default {
   name: 'sliderV2',
   props: ['newSong', 'newCD', 'extraNextCD', 'extraPrevCD', 'sType'],
@@ -150,6 +150,7 @@ export default {
     position: absolute;
     top: 0;
     left: 0;
+    pointer-events: none;
   }
   .arrow-left {
     width: 50%;
@@ -173,6 +174,7 @@ export default {
     top: 41%;
     margin-top: -32px;
     cursor: pointer;
+    pointer-events: initial;
   }
   .slider-a:hover {
     background-color: rgba(0,0,0,0.1);

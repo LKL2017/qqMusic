@@ -47,7 +47,7 @@
                 </router-link>
               </td>
               <td>
-                <router-link :to="{name: 'album-detail', params: {alid: content.al.id}}" detailType="album">
+                <router-link :to="{name: 'album-detail', params: {alid: content.al.id, detailType:'album'}}">
                   {{content.al.name}}
                 </router-link>
               </td>

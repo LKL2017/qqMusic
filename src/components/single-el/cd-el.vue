@@ -4,8 +4,16 @@
       <img :src="singleData.picUrl">
     </div>
     <div class="cd-mask"></div>
-    <div class="cd-name">{{singleData.name}}</div>
-    <div class="cd-author">{{singleData.artist.name}}</div>
+    <div class="cd-name">
+      <router-link :to="{name: 'album-detail', params:{alid: singleData.id,detailType:'album'}}">
+        {{singleData.name}}
+      </router-link>
+    </div>
+    <div class="cd-author">
+      <router-link :to="{name: 'singer-detail', params:{sid: singleData.artist.id}}">
+        {{singleData.artist.name}}
+      </router-link>
+    </div>
   </div>
 </template>
 

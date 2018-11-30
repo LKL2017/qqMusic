@@ -26,7 +26,7 @@ const routes = [
       {path: '/singer/:sid', name: 'singer-detail', component: singerDetail, props: true},
       {path: '/song/:soid', name: 'song-detail', component: detailTemplate, props: true},
       {path: '/album', component: album},
-      {path: '/album/:aid', name: 'album-detail', component: detailTemplate, props: true},
+      {path: '/album/:alid', name: 'album-detail', component: detailTemplate, props: true},
       {path: '/leader-board', component: leaderBoard},
       {path: '/songlist-class', component: songlistClass},
       {path: '/radio', component: radio},
