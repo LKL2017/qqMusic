@@ -1,6 +1,5 @@
 <template>
-  <div>singer这里放一张图片
-    {{query_str}}
+  <div>
     <div class="selector">
       <div class="singer-region" @click="changeChoice">
         <a v-for="r in singer_region" :key="r.id" :tag="r.id" href="#">

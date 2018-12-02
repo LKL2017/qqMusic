@@ -1,5 +1,4 @@
 <template>
-  <!-- todo 替换元素加判断最后做v-if="detailType === 'song'" -->
   <div>
     <div class="detail-head">
       <div class="belong-img">
@@ -13,8 +12,21 @@
         </div>
         <div class="related-author">
           <img src="../../assets/author2.svg">
-          <span v-if="detailType === 'song'">{{song_detail.ar[0].name}}</span>
-          <span v-else-if="detailType === 'album'">{{album_detail.album.artist.name}}</span>
+          <span v-if="detailType === 'song'">
+            <span v-for="(s,index) in song_detail.ar" :key="s.id" >
+              <span v-if="index>0">,</span>
+              <span>
+                <router-link :to="{name: 'singer-detail',params:{sid: s.id}}">
+                  {{s.name}}
+                </router-link>
+              </span>
+            </span>
+          </span>
+          <span v-else-if="detailType === 'album'">
+            <router-link :to="{name: 'singer-detail',params:{sid: album_detail.album.artist.id}}">
+              {{album_detail.album.artist.name}}
+            </router-link>
+          </span>
         </div>
         <div class="related-intro">
           <span v-if="detailType === 'song'" key="song">所属专辑:《{{song_detail.al.name}}》</span>
@@ -49,7 +61,29 @@
         <!--<a @click="toggleLyric">[展开]</a>-->
       <!--</div>-->
     </div>
-    <div v-else-if="detailType === 'album'" key="album">歌曲列表</div>
+    <div v-else-if="detailType === 'album'" class="album-song-list-box" key="album">
+        <table class="album-song-list">
+          <tr>
+            <th></th>
+            <th>歌曲</th>
+            <th>歌手</th>
+          </tr>
+          <tr v-for="(i,index) in album_detail.songs" class="a-s-content" :key="i.id">
+            <td>{{index+1}}</td>
+            <td>
+              <router-link :to="{name:'song-detail', params:{soid:i.id, detailType:'song'}}">
+                {{i.name}}
+              </router-link>
+            </td>
+            <td>
+              <span v-for="(n,index) in i.ar" :key="n.id">
+                <span v-if="index > 0">,</span>
+                <router-link :to="{name:'singer-detail', params: {sid: n.id}}">{{n.name}}</router-link>
+              </span>
+            </td>
+          </tr>
+        </table>
+    </div>
     <div class="comment">
       <comment-el :commentInfo="commentInfo"></comment-el>
     </div>
@@ -66,11 +100,16 @@ export default {
     return {
       song_detail: {},
       album_detail: {},
-      comment_total: undefined,
+      comment_total: 0,
       res_lyric: '',
       isShow: false,
       commentInfo: []
     };
+  },
+  watch: {
+    detailType () {
+      this.updateRelateInfo();
+    }
   },
   computed: {
     song_lyric () {
@@ -90,50 +129,7 @@ export default {
     commentEl
   },
   mounted () {
-    // 根据detailType查询信息
-    if (this.detailType === 'song') {
-      let that = this;
-      // 查询单曲信息
-      axios
-        .get('http://localhost:3000/song/detail?ids=' + this.soid)
-        .then(function (response) {
-          that.song_detail = response.data.songs[0];
-        });
-      // 查询单曲评论数量
-      axios
-        .get('http://localhost:3000/comment/music?id=' + this.soid)
-        .then(function (response) {
-          that.comment_total = response.data.total;
-        });
-      // 查询歌词
-      axios
-        .get('http://localhost:3000/lyric?id=' + this.soid)
-        .then(function (response) {
-          that.res_lyric = response.data.lrc.lyric;
-        });
-
-      // 获取评论 暂时先只展示热评
-      axios
-        .get('http://localhost:3000/comment/music?limit=1&id=' + this.soid)
-        .then(function (response) {
-          that.commentInfo = response.data.hotComments;
-        });
-    } else if (this.detailType === 'album') {
-      let that = this;
-      // 查询专辑信息
-      axios
-        .get('http://localhost:3000/album?id=' + this.alid)
-        .then(function (response) {
-          that.album_detail = response.data;
-        });
-
-      // 获取热评
-      axios
-        .get('http://localhost:3000/comment/album?limit=1&id=' + this.alid)
-        .then(function (response) {
-          that.commentInfo = response.data.hotComments;
-        });
-    }
+    this.updateRelateInfo();
   },
   methods: {
     // hideLyric () {
@@ -164,6 +160,53 @@ export default {
     //     this.showLyric();
     //   }
     // }
+
+    updateRelateInfo () {
+      // 根据detailType查询信息
+      if (this.detailType === 'song') {
+        let that = this;
+        // 查询单曲信息
+        axios
+          .get('http://localhost:3000/song/detail?ids=' + this.soid)
+          .then(function (response) {
+            that.song_detail = response.data.songs[0];
+          });
+        // 查询单曲评论数量
+        axios
+          .get('http://localhost:3000/comment/music?id=' + this.soid)
+          .then(function (response) {
+            that.comment_total = response.data.total;
+          });
+        // 查询歌词
+        axios
+          .get('http://localhost:3000/lyric?id=' + this.soid)
+          .then(function (response) {
+            that.res_lyric = response.data.lrc.lyric;
+          });
+
+        // 获取评论 暂时先只展示热评
+        axios
+          .get('http://localhost:3000/comment/music?limit=1&id=' + this.soid)
+          .then(function (response) {
+            that.commentInfo = response.data.hotComments;
+          });
+      } else if (this.detailType === 'album') {
+        let that = this;
+        // 查询专辑信息
+        axios
+          .get('http://localhost:3000/album?id=' + this.alid)
+          .then(function (response) {
+            that.album_detail = response.data;
+          });
+
+        // 获取热评
+        axios
+          .get('http://localhost:3000/comment/album?limit=1&id=' + this.alid)
+          .then(function (response) {
+            that.commentInfo = response.data.hotComments;
+          });
+      }
+    }
   }
 };
 </script>
@@ -246,7 +289,7 @@ export default {
     color: #fff;
     border: 1px solid #40c672;
   }
-  .lyric {
+  .lyric ,.album-song-list-box {
     max-width: 1200px;
     margin: 30px auto 0;
     position: relative;
@@ -262,6 +305,31 @@ export default {
     font-size: 18px;
     font-weight: bold;
     margin-bottom: 20px;
+  }
+  .album-song-list tr:nth-of-type(odd){
+    background-color: rgba(240,240,240,0.4);
+  }
+  .album-song-list {
+    border: 0;
+    border-collapse: collapse;
+    width: 100%;
+    color: #666;
+    font-size: 14px;
+    text-align: left;
+    margin-bottom: 44px;
+  }
+  .album-song-list td,th {
+    padding: 12px 0 12px 6px;
+  }
+  .album-song-list th {
+    font-weight: normal;
+    color: #aaa;
+  }
+  .a-s-content td:nth-of-type(1) {
+    width: 3%;
+  }
+  .a-s-content td:nth-of-type(2) {
+    width: 45%;
   }
   .comment {
     max-width: 1200px;

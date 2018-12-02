@@ -20,11 +20,40 @@
           </li>
         </ul>
       </div>
-      <div v-else-if="sType === 'Song'">
-        <!--接口参数limit暂时不可用-->
+      <!--单曲接口参数limit暂时不可用-->
+      <!--sType === 'Song'-->
+      <div v-else-if="sType === 'SongList'" class="slider-box">
+        <ul class="extra-prev">
+          <li v-for="exli in extraPrevSongList[0]" :key="exli.id">
+            <sl-el :single-data="exli"></sl-el>
+          </li>
+        </ul>
+        <ul v-for="s in songList" :key="s.id">
+          <li v-for="subli in s" :key="subli.id">
+            <sl-el :single-data="subli"></sl-el>
+          </li>
+        </ul>
+        <ul class="extra-next">
+          <li v-for="exli in extraNextSongList[0]" :key="exli.id">
+            <sl-el :single-data="exli"></sl-el>
+          </li>
+        </ul>
       </div>
-      <div>
+      <div v-if="sType === 'CD'" class="nav-circle" @click="changeDot" >
         <!--导航圆点-->
+        <!--这里用newCD只是为了取得数量-->
+        <a v-for="(i,index) in newCD" class="dot"
+           :class="{'current-dot': index === current_left
+            || (index === 0 && current_left === 4)
+             || (index === 3 && current_left === -1)}" :key="i.id"></a>
+      </div>
+      <div v-if="sType === 'SongList'" class="nav-circle" @click="changeDot">
+        <!--导航圆点-->
+        <!--这里用newCD只是为了取得数量-->
+        <a v-for="(i,index) in songList" class="dot"
+           :class="{'current-dot': index === current_left
+            || (index === 0 && current_left === 4)
+             || (index === 3 && current_left === -1)}" :key="i.id"></a>
       </div>
     </div>
     <div class="slider-arrow">
@@ -46,9 +75,13 @@
 <script>
 /* eslint semi: "error" */
 import cdEl from '../single-el/cd-el';
+import slEl from '../single-el/sl-el';
 export default {
   name: 'sliderV2',
-  props: ['newSong', 'newCD', 'extraNextCD', 'extraPrevCD', 'sType'],
+  props: [
+    'songList', 'extraNextSongList', 'extraPrevSongList',
+    'newCD', 'extraNextCD', 'extraPrevCD',
+    'sType'],
   data () {
     return {
       SCREEN_COUNT: 6, // 这里每种类型的滑动次数是一样的，所以暂时不用计算属性
@@ -60,11 +93,18 @@ export default {
   watch: {
   },
   components: {
-    cdEl
+    cdEl,
+    slEl
   },
   methods: {
     nextScreen (event) {
-      let sliderBox = document.querySelector('.slider-box');
+      let sliderBox = null;
+      // if (this.sType === 'SongList') {
+      //   sliderBox = this.$refs.SongList.querySelector('.slider-box');
+      // } else if (this.sType === 'CD') {
+      //   sliderBox = this.$refs.CD.querySelector('.slider-box');
+      // }
+      sliderBox = this.$el.querySelector('.slider-box');
       // 在合法索引范围都允许滑动 -2是多余的两张ul
       if (this.current_left < this.SCREEN_COUNT - 2 && this.current_left >= 0) {
         sliderBox.style.transition = 'left 0.5s';
@@ -82,7 +122,7 @@ export default {
       }
     },
     prevScreen (event) {
-      let sliderBox = document.querySelector('.slider-box');
+      let sliderBox = this.$el.querySelector('.slider-box');
       // 索引在合理范围内都可以移动
       if (this.current_left >= 0 && this.current_left < this.SCREEN_COUNT - 2) {
         this.current_left -= 1;
@@ -98,6 +138,12 @@ export default {
           }
         }, 500);
       }
+    },
+    changeDot (event) {
+      // if (event.target.tagName().toLowerCase() === 'a') {
+      //
+      // }
+      //
     }
   }
 };
@@ -126,7 +172,7 @@ export default {
     float: left;
     list-style: none;
     padding: 0;
-    margin-right: 4px;
+    margin: 12px 4px 0 0;
   }
   .slider-box ul li {
     width: 20%;
@@ -196,4 +242,21 @@ export default {
     /*left: 7%;*/
     /*transition: left 0.5s;*/
   /*}*/
+  .nav-circle {
+    display: flex;
+    flex-direction: row;
+    list-style: none;
+    justify-content: space-between;
+    width: 128px;
+    margin: 0 auto;
+  }
+  .dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 4px;
+    background-color: #ddd;
+  }
+  .nav-circle .current-dot {
+    background-color: #999;
+  }
 </style>

@@ -7,7 +7,7 @@
     <new-CD></new-CD>
   </div>
   <div>
-    <song-rank></song-rank>
+    <!--<song-rank></song-rank>-->
   </div>
   <div>
     <music-video></music-video>

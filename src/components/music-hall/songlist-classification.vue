@@ -1,11 +1,17 @@
 <template>
-  <div>song-list</div>
+  <div>song-list
+    <todo-template></todo-template>
+  </div>
 </template>
 
 <script>
-  export default {
-    name: 'songlist-classification'
+import todoTemplate from '../../components/todo-template/todo-template'
+export default {
+  name: 'songlist-classification',
+  components: {
+    todoTemplate
   }
+}
 </script>
 
 <style type="text/css">

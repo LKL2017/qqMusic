@@ -100,33 +100,43 @@ export default {
   },
   props: ['sid'],
   mounted () {
-    // 查询歌手相关信息
-    let that = this;
-    axios
-      .get('http://localhost:3000/artists?id=' + this.sid)
-      .then(function (response) {
-        that.res = response.data;
-        for (let i = 0; i < 20; i++) {
-          that.hot_songs.push(response.data.hotSongs[i]);
-        }
-      });
+    this.updateSingerInfo();
+  },
+  watch: {
+    sid () {
+      this.updateSingerInfo();
+    }
+  },
+  methods: {
+    updateSingerInfo () {
+      // 查询歌手相关信息
+      let that = this;
+      axios
+        .get('http://localhost:3000/artists?id=' + this.sid)
+        .then(function (response) {
+          that.res = response.data;
+          for (let i = 0; i < 20; i++) {
+            that.hot_songs.push(response.data.hotSongs[i]);
+          }
+        });
 
-    // 查询专辑信息 limit=5
-    axios
-      .get('http://localhost:3000/artist/album?id=' + this.sid + '&limit=5')
-      .then(function (response) {
-        that.album_info = response.data.hotAlbums;
-      });
+      // 查询专辑信息 limit=5
+      axios
+        .get('http://localhost:3000/artist/album?id=' + this.sid + '&limit=5')
+        .then(function (response) {
+          that.album_info = response.data.hotAlbums;
+        });
 
-    // 查询mv信息 limit=5
-    axios
-      .get('http://localhost:3000/artist/mv?id=' + this.sid + '&limit=5')
-      .then(function (response) {
-        that.mv_info = response.data.mvs;
-      });
+      // 查询mv信息 limit=5
+      axios
+        .get('http://localhost:3000/artist/mv?id=' + this.sid + '&limit=5')
+        .then(function (response) {
+          that.mv_info = response.data.mvs;
+        });
 
-    // 查询相似歌手信息
-    // 需要登录信息，暂时不做
+      // 查询相似歌手信息
+      // 需要登录信息，暂时不做
+    }
   }
 };
 </script>

@@ -1,11 +1,17 @@
 <template>
-  <div>leader-board</div>
+  <div>leader-board
+    <todo-template></todo-template>
+  </div>
 </template>
 
 <script>
-  export default {
-    name: 'leaderboard'
+import todoTemplate from '../../components/todo-template/todo-template'
+export default {
+  name: 'leaderboard',
+  components: {
+    todoTemplate
   }
+}
 </script>
 
 <style type="text/css">

@@ -1,10 +1,16 @@
 <template>
-  <div>my-music-page</div>
+  <div>my-music-page
+    <to-do></to-do>
+  </div>
 </template>
 
 <script>
+import toDo from '../../components/todo-template/todo-template'
 export default {
-  name: 'my-music'
+  name: 'my-music',
+  components: {
+    toDo
+  }
 }
 </script>
 

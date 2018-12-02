@@ -7,7 +7,8 @@
       <span>更多></span>
     </div>
     <div>
-      <slider-v2 :newCD="newCD" :extraPrevCD="extraPrevCD" :extraNextCD="extraNextCD" sType="CD"></slider-v2>
+      <slider-v2 :newCD="newCD" :extraPrevCD="extraPrevCD"
+                 :extraNextCD="extraNextCD" sType="CD" ref="CD"></slider-v2>
     </div>
   </div>
 </template>

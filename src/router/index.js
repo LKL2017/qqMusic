@@ -25,6 +25,7 @@ const routes = [
       {path: '/singer', component: singer},
       {path: '/singer/:sid', name: 'singer-detail', component: singerDetail, props: true},
       {path: '/song/:soid', name: 'song-detail', component: detailTemplate, props: true},
+      {path: '/songlist/:slid', name: 'sl-detail', component: detailTemplate, props: true},
       {path: '/album', component: album},
       {path: '/album/:alid', name: 'album-detail', component: detailTemplate, props: true},
       {path: '/leader-board', component: leaderBoard},
@@ -36,7 +37,7 @@ const routes = [
     ]
   },
   {path: '/my-music', component: myMusic}
-  // 客户端、音乐号和vip需要重定向
+  // 客户端、音乐号和vip暂时不做
 ]
 
 export default new Router({
