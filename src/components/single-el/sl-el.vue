@@ -1,16 +1,16 @@
 <template>
     <div class="single-sl-box">
       <div class="play">
-        <router-link :to="{name: 'sl-detail', params:{slid: singleData.id,detailType:'sl'}}">
+        <!--<router-link :to="{name: 'sl-detail', params:{slid: singleData.id,detailType:'sl'}}">-->
           <img class="sl-p-img scd-p-img" :src="singleData.coverImgUrl">
           <i class="sl-mask cd-mask"></i>
           <i class="sl-play-btn cd-play-btn"></i>
-        </router-link>
+        <!--</router-link>-->
       </div>
       <div class="sl-name">
-        <router-link :to="{name: 'sl-detail', params:{slid: singleData.id,detailType:'sl'}}">
+        <!--<router-link :to="{name: 'sl-detail', params:{slid: singleData.id,detailType:'sl'}}">-->
           {{singleData.name}}
-        </router-link>
+        <!--</router-link>-->
       </div>
       <div class="sl-playcount">
         <span>播放量:{{playCount}}</span>

@@ -22,6 +22,9 @@ export default {
 </script>
 
 <style type="text/css">
+  #top-nav {
+    width: 60%;
+  }
   #top-nav ul{
     display: flex;
     flex-direction: row;

@@ -13,6 +13,7 @@ import digitalAlbum from '../components/music-hall/digital-album'
 import ticketing from '../components/music-hall/ticketing'
 import singerDetail from '../components/singer/singer-detail'
 import detailTemplate from '../components/detail-template/detail-template'
+import webPlayer from '../components/web-player/web-player'
 Vue.use(Router)
 
 const routes = [
@@ -36,8 +37,9 @@ const routes = [
       {path: '/ticketing', component: ticketing}
     ]
   },
-  {path: '/my-music', component: myMusic}
+  {path: '/my-music', component: myMusic},
   // 客户端、音乐号和vip暂时不做
+  {path: '/web-player', name: 'web-player', component: webPlayer}
 ]
 
 export default new Router({

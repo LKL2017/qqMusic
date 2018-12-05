@@ -52,7 +52,7 @@ export default {
   beforeCreate () {
     let that = this;
     axios
-      .get(that.base_url + '/playlist/hot')
+      .get(that.baseUrl + '/playlist/hot')
       .then(function (response) {
         let dataArr = response.data.tags;
         let catArr = [];

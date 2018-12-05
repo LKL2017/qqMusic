@@ -35,9 +35,12 @@
           </span>
         </div>
         <div class="related-operations">
-          <button>
-            <img src="../../assets/play_2.svg">
-            <span>播放</span>
+          <button @click="toPlayer">
+              <img src="../../assets/play_2.svg">
+              <span>
+                <!--<router-link v-if="detailType === 'song'" :to="{name:'web-player', params:{songID: song_detail.id}}">播放</router-link>-->
+                播放
+              </span>
           </button>
           <button>
             <img src="../../assets/love.svg">
@@ -161,6 +164,17 @@ export default {
     //   }
     // }
 
+    toPlayer () {
+      // this.$router.push({name: 'web-player', params: {songID: this.soid, audioType: 'song'}});
+      const {href} = this.$router.resolve({
+        name: 'web-player',
+        query: { // 这里用params接受不到
+          songID: this.soid,
+          audioType: 'song'
+        }
+      });
+      window.open(href, '_blank');
+    },
     updateRelateInfo () {
       // 根据detailType查询信息
       if (this.detailType === 'song') {

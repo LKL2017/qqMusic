@@ -2,9 +2,11 @@
   <div v-if="iType === 'album'" class="i-box">
     <div v-for="a in aInfo" :key="a.id" class="i-container">
       <div class="i-cover">
-        <img class="i-cover-img" :src="a.blurPicUrl">
-        <i class="i-cover-mask"></i>
-        <i class="i-play-btn"></i>
+        <router-link :to="{name:'album-detail',params:{alid: a.id, detailType:'album'}}">
+          <img class="i-cover-img" :src="a.blurPicUrl">
+          <i class="i-cover-mask"></i>
+          <i class="i-play-btn"></i>
+        </router-link>
       </div>
       <div class="i-name">
         <router-link :to="{name:'album-detail',params:{alid: a.id, detailType:'album'}}">{{a.name}}</router-link>
