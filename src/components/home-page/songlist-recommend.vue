@@ -36,8 +36,7 @@ export default {
       extraPrevSongList: [],
       extraNextSongList: [],
       PAGE: 4,
-      LIMIT: 5,
-      baseUrl: 'http://192.168.0.100:3000'
+      LIMIT: 5
     };
   },
   watch: {
@@ -52,7 +51,7 @@ export default {
   beforeCreate () {
     let that = this;
     axios
-      .get(that.baseUrl + '/playlist/hot')
+      .get(this.COMMON.reqBaseUrl + '/playlist/hot')
       .then(function (response) {
         let dataArr = response.data.tags;
         let catArr = [];
@@ -84,7 +83,7 @@ export default {
       // songList
       for (let i = 1; i <= this.PAGE; i++) {
         axios
-          .get(that.baseUrl + '/search?type=1000&limit=' +
+          .get(this.COMMON.reqBaseUrl + '/search?type=1000&limit=' +
             this.LIMIT + '&keywords=' + this.current_cat +
             '&offset=' + (i - 1) * this.LIMIT)
           .then(function (response) {

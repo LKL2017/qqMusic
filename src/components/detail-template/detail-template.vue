@@ -181,26 +181,26 @@ export default {
         let that = this;
         // 查询单曲信息
         axios
-          .get('http://localhost:3000/song/detail?ids=' + this.soid)
+          .get(this.COMMON.reqBaseUrl + '/song/detail?ids=' + this.soid)
           .then(function (response) {
             that.song_detail = response.data.songs[0];
           });
         // 查询单曲评论数量
         axios
-          .get('http://localhost:3000/comment/music?id=' + this.soid)
+          .get(this.COMMON.reqBaseUrl + '/comment/music?id=' + this.soid)
           .then(function (response) {
             that.comment_total = response.data.total;
           });
         // 查询歌词
         axios
-          .get('http://localhost:3000/lyric?id=' + this.soid)
+          .get(this.COMMON.reqBaseUrl + '/lyric?id=' + this.soid)
           .then(function (response) {
             that.res_lyric = response.data.lrc.lyric;
           });
 
         // 获取评论 暂时先只展示热评
         axios
-          .get('http://localhost:3000/comment/music?limit=1&id=' + this.soid)
+          .get(this.COMMON.reqBaseUrl + '/comment/music?limit=1&id=' + this.soid)
           .then(function (response) {
             that.commentInfo = response.data.hotComments;
           });
@@ -208,14 +208,14 @@ export default {
         let that = this;
         // 查询专辑信息
         axios
-          .get('http://localhost:3000/album?id=' + this.alid)
+          .get(this.COMMON.reqBaseUrl + '/album?id=' + this.alid)
           .then(function (response) {
             that.album_detail = response.data;
           });
 
         // 获取热评
         axios
-          .get('http://localhost:3000/comment/album?limit=1&id=' + this.alid)
+          .get(this.COMMON.reqBaseUrl + '/comment/album?limit=1&id=' + this.alid)
           .then(function (response) {
             that.commentInfo = response.data.hotComments;
           });

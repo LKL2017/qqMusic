@@ -70,7 +70,7 @@ export default {
   },
   mounted () {
     axios
-      .get('http://localhost:3000/search?keywords=' + this.songCat + '&type=' + this.QUERY_TYPE + '&limit=' + this.LIMIT)
+      .get(this.COMMON.reqBaseUrl + '/search?keywords=' + this.songCat + '&type=' + this.QUERY_TYPE + '&limit=' + this.LIMIT)
       .then(response => this.current_category = response.data.result.playlists);
     // 计算width赋值
     let cc = document.querySelector("#cover-container");
@@ -97,7 +97,7 @@ export default {
     // 监听songCat属性变化
     songCat () {
         axios
-          .get('http://localhost:3000/search?keywords=' + this.songCat + '&type=' + this.QUERY_TYPE + '&limit=' + this.LIMIT)
+          .get(this.COMMON.reqBaseUrl + '/search?keywords=' + this.songCat + '&type=' + this.QUERY_TYPE + '&limit=' + this.LIMIT)
           .then(response => this.current_category = response.data.result.playlists);
     }
   },

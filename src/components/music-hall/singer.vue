@@ -73,7 +73,7 @@ export default {
     query_str () {
       let that = this;
       axios
-        .get('http://localhost:3000/artist/list?' + this.query_str)
+        .get(this.COMMON.reqBaseUrl + '/artist/list?' + this.query_str)
         .then(function (response) {
           that.res_singer = response.data.artists;
         });
@@ -118,7 +118,7 @@ export default {
     // 查询当前选择的歌手列表
     let that = this;// 或者在then里用箭头函数
     axios
-      .get('http://localhost:3000/artist/list?' + this.query_str)
+      .get(this.COMMON.reqBaseUrl + '/artist/list?' + this.query_str)
       .then(function (response) {
         that.res_singer = response.data.artists;
       });

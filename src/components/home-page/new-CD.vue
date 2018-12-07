@@ -37,7 +37,7 @@ export default {
     let that = this;
     for (let i = 1; i <= this.PAGE; i++) {
       axios
-        .get('http://localhost:3000/top/album?offset=' + this.LIMIT * (i - 1) + '&limit=' + this.LIMIT)
+        .get(this.COMMON.reqBaseUrl + '/top/album?offset=' + this.LIMIT * (i - 1) + '&limit=' + this.LIMIT)
         .then(function (response) {
           if (i === 1) {
             that.extraNextCD = response.data.albums;

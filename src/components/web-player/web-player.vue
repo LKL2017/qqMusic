@@ -15,7 +15,6 @@ export default {
   // props: ['songID', 'audioType'],
   data () {
     return {
-      baseUrl: 'http://localhost:3000',
       audioSrc: undefined
     };
   },
@@ -36,7 +35,7 @@ export default {
     querySongUrl (id) {
       let that = this;
       axios
-        .get(this.baseUrl + '/song/url?id=' + id)
+        .get(this.COMMON.reqBaseUrl + '/song/url?id=' + id)
         .then(function (response) {
           // 异步接口里不要使用return
           that.audioSrc = response.data.data[0].url;
@@ -53,7 +52,7 @@ export default {
 };
 </script>
 
-<style type="text/css" >
+<style type="text/css" scoped>
 html,body {
   height: 100%;
   margin: 0;

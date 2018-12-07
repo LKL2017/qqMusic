@@ -16,7 +16,7 @@ export default {
   },
   beforeMount () {
     axios
-      .get('http://localhost:3000/comment/music?id=186016&limit=1')
+      .get(this.COMMON.reqBaseUrl + '/comment/music?id=186016&limit=1')
       .then(response => (this.info = response))
   }
 }
