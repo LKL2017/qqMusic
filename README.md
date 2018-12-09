@@ -2,7 +2,7 @@
 
 > 模仿qq音乐PC官网做了一些页面,api引用于[Binaryfy的api项目](https://github.com/Binaryify/NeteaseCloudMusicApi)
 
-> demo展示地址：[戳这里](http://47.1.7.40.239)
+> demo展示地址：[戳这里](http://47.107.40.239)
 
 
 ### 目前功能
