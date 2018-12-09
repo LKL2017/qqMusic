@@ -24,6 +24,9 @@ export default {
 </script>
 
 <style type="text/css">
+  #music-hall-div {
+    min-width: 900px;
+  }
   #music-hall-div ul {
     display: flex;
     flex-direction: row;

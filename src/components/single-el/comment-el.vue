@@ -75,6 +75,7 @@ export default {
     resize: none;
     font-size: 14px;
     background-color: rgba(0,30,0,0.03);
+    border: 1px solid #bbb;
   }
   .submit img {
     width: 24px;

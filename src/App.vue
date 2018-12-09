@@ -2,7 +2,7 @@
   <div id="app">
     <div id="main-nav">
       <top-nav></top-nav>
-      <search></search>
+      <!--<search></search>-->
     </div>
     <router-view/>
     <my-footer></my-footer>

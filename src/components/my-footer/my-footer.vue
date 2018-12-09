@@ -64,6 +64,7 @@ export default {
     justify-content: space-between;
     color: #a5a5a5;
     margin-top: 60px;
+    min-width: 900px;
   }
   /*.my-footer::after {*/
     /*display: block;*/

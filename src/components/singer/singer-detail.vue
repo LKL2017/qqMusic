@@ -278,5 +278,6 @@ export default {
   }
   .btn button:nth-of-type(2){
     background-color: transparent;
+    border: 1px solid #bbb;
   }
 </style>

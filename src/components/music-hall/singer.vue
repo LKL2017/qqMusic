@@ -153,6 +153,11 @@ export default {
 </script>
 
 <style type="text/css">
+  .selector {
+    min-width: 960px;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
   .singer-region ,.singer-type,.first-char{
     position: relative;
     top: 30px;

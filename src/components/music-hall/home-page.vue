@@ -1,5 +1,5 @@
 <template>
-<div>
+<div class="home-page-container">
   <div class="slr">
     <song-list-recommend></song-list-recommend>
   </div>
@@ -41,6 +41,12 @@ export default {
 </script>
 
 <style type="text/css">
+  .home-page-container {
+    min-width: 900px;
+  }
+  .slr {
+    height: 540px;
+  }
   .slr:hover .prev{
     display: block;
   }

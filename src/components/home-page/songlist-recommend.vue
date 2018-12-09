@@ -1,6 +1,7 @@
 <template>
     <div class="song-recommend">
       <h2>歌单推荐</h2>
+      <p style="font-size: 10px;color: #999;">(注：由于api原因暂时看不到详情)</p>
       <!--查询前五个较火的歌单分类-->
       <ul class="tag-title" @click="showSongList">
         <li v-for="category in hot_category" :key="category.id">
@@ -119,7 +120,7 @@ export default {
   }
   .song-recommend {
     background: rgb(246,246,246);
-    height: 480px;
+    height: 560px;
   }
   .song-recommend:hover .arrow-left a {
     left: 0;

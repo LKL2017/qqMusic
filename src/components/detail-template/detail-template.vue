@@ -35,9 +35,16 @@
           </span>
         </div>
         <div class="related-operations">
-          <button @click="toPlayer">
+          <button v-if="detailType === 'song'"  @click="toPlayer">
               <img src="../../assets/play_2.svg">
               <span>
+                <!--<router-link v-if="detailType === 'song'" :to="{name:'web-player', params:{songID: song_detail.id}}">播放</router-link>-->
+                播放
+              </span>
+          </button>
+          <button v-else>
+            <img src="../../assets/play_2.svg">
+            <span>
                 <!--<router-link v-if="detailType === 'song'" :to="{name:'web-player', params:{songID: song_detail.id}}">播放</router-link>-->
                 播放
               </span>
@@ -123,7 +130,7 @@ export default {
     hideTime (str) {
       if (!str) return '';
       let searchChar = ']';
-      let index = str.indexOf(searchChar);
+      let index = str.lastIndexOf(searchChar);
       str = str.slice(index + 1);
       return str;
     }
@@ -302,6 +309,9 @@ export default {
     background-color: #40c672;
     color: #fff;
     border: 1px solid #40c672;
+  }
+  .related-operations button:nth-of-type(n+2){
+    border: 1px solid #bbb;
   }
   .lyric ,.album-song-list-box {
     max-width: 1200px;

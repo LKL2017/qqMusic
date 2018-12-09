@@ -23,7 +23,8 @@ export default {
 
 <style type="text/css">
   #top-nav {
-    width: 60%;
+    min-width: 900px;
+    height: 58px;
   }
   #top-nav ul{
     display: flex;
