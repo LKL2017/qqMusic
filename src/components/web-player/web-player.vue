@@ -5,7 +5,7 @@
       <div class="lyric-container">
         <div class="all-lyric">
           <p v-for="(s,index) in song_lyric" :key="s" class="s_lyric"
-             :class="{'current_lyric': getLyricTime(s) <= currentCL && currentCL < getLyricTime(song_lyric[index+1])}">
+             :class="{'current-lyric': getLyricTime(s) <= currentCL && currentCL < getLyricTime(song_lyric[index+1])}">
             {{s | formatLyric}}
           </p>
         </div>
@@ -18,7 +18,7 @@
         <!--<div class="total-volume"></div>-->
         <!--<div class="current-volume"></div>-->
       <!--</div>-->
-      <div class="progress-line">
+      <div class="progress-line" @click="toNewProgress">
         <div class="total-progress"></div>
         <div class="current-progress">
           <img src="../../assets/progress_dot.svg">
@@ -101,13 +101,14 @@ export default {
       cP.style.width = rate * 100 + '%';
       // 更新currentCL,当前歌词高亮
       this.currentCL = parseInt(ct);
-      let el = document.querySelector('.all-lyric');
-      el.style.transform = 'translateY(calc(' + -rate * 100 + '% + 400px))';
+      // 滚动歌词
+      // this.scrollLyric(rate);
       // 歌曲播放完成时
       if (ct === tt) {
         this.isPlay = false;
       }
     },
+    // 格式化音乐时间
     formatTime (t) {
       let min = parseInt(t / 60);
       let sec = parseInt(t % 60);
@@ -119,10 +120,12 @@ export default {
       this.player.play();
       this.isPlay = true;
     },
+    // 暂停音乐
     pauseMusic () {
       this.player.pause();
       this.isPlay = false;
     },
+    // 切换音乐播放/暂停状态
     toggleBtn () {
       if (this.isPlay === false) {
         this.playMusic();
@@ -130,11 +133,29 @@ export default {
         this.pauseMusic();
       }
     },
+    // 当前歌曲的时间
     getLyricTime (str) {
       let index = str.lastIndexOf(':');
       let min = parseInt(str.slice(index - 2, index));
       let sec = parseInt(str.slice(index + 1, index + 3));
       return min * 60 + sec;
+    },
+    // 滚动歌词
+    scrollLyric (rate) {
+      let al = document.querySelector('.all-lyric');
+      al.scrollTop = rate * al.offsetHeight - 210;
+    },
+    // 跳转歌曲进度
+    toNewProgress (event) {
+      let tp = document.querySelector('.total-progress');
+      let mAudio = document.querySelector('.music-player');
+      // 计算点击位置距总体百分比
+      // 音乐总时间乘以百分比得到当前时间，并设置时间
+      if (event.target.tagName.toLowerCase() !== 'img') {
+        console.log(event.offsetX);
+        let rate = event.offsetX / tp.offsetWidth;
+        mAudio.currentTime = rate * mAudio.duration;
+      }
     }
   }
 };
@@ -170,8 +191,9 @@ export default {
 }
 .progress-line {
   width: 60%;
-  min-width: 300px;
+  /*min-width: 300px;*/
   position: relative;
+  padding-bottom: 3px;
 }
 .current-progress {
   position: absolute;
@@ -205,14 +227,14 @@ export default {
   left: 50%;
   margin-top: -210px;
   margin-left: -320px;
-  overflow: hidden;
+  overflow: scroll;
   /*mask-image: ;*/
 }
 .s_lyric {
   color: #999999;
   transition: color 0.8s;
 }
-.current_lyric {
+.current-lyric {
   color: #40c672;
   transition: color 0.8s;
 }
