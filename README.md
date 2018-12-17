@@ -1,21 +1,14 @@
 # qqmusic
 
-> intimate a qq-Music pc web page
+> 模仿qq音乐PC官网做了一些页面,api引用于[Binaryfy的api项目](https://github.com/Binaryify/NeteaseCloudMusicApi)
 
-## Build Setup
+> demo展示地址：[戳这里](http://47.107.40.239)
 
-``` bash
-# install dependencies
-npm install
 
-# serve with hot reload at localhost:8080
-npm run dev
+### 目前进度
 
-# build for production with minification
-npm run build
-
-# build for production and view the bundle analyzer report
-npm run build --report
-```
-
-For a detailed explanation on how things work, check out the [guide](http://vuejs-templates.github.io/webpack/) and [docs for vue-loader](http://vuejs.github.io/vue-loader).
+1.主页部分<br>
+2.歌手页面部分<br>
+3.单曲/专辑/歌手详情部分<br>
+4.单曲音乐播放（还未支持列表播放）<br>
+5.歌单由于api问题暂无列表<br>
