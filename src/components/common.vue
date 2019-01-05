@@ -3,8 +3,8 @@
 </template>
 
 <script>
-const reqBaseUrl = 'http://47.107.40.239/nEApi'
-// const reqBaseUrl = 'http://localhost:3000'
+// const reqBaseUrl = 'http://47.107.40.239/nEApi'
+const reqBaseUrl = 'http://localhost:3000'
 export default {
   name: 'global',
   reqBaseUrl

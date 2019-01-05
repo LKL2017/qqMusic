@@ -55,15 +55,8 @@ export default {
       .get(this.COMMON.reqBaseUrl + '/playlist/hot')
       .then(function (response) {
         let dataArr = response.data.tags;
-        let catArr = [];
         // 取出前五个热门分类
-        dataArr = dataArr.slice(0, 5);
-        for (let i = 0; i < dataArr.length; i++) {
-          catArr.push(dataArr[i].name);
-        }
-        that.hot_category = catArr;
-        // 赋初始值给当前分类，否则会以undefined为参数进行请求
-        that.current_cat = catArr[0];
+        that.hot_category = dataArr.slice(0, 5).map(x => x.name);
       });
   },
   methods: {
