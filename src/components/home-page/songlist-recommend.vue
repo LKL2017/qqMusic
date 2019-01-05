@@ -4,7 +4,7 @@
       <p style="font-size: 10px;color: #999;">(注：由于api原因暂时看不到详情)</p>
       <!--查询前五个较火的歌单分类-->
       <ul class="tag-title" @click="showSongList">
-        <li v-for="category in hot_category" :key="category.id">
+        <li v-for="category in hotCategory" :key="category.id">
           <a style="cursor: pointer">{{category}}</a>
         </li>
       </ul>
@@ -31,8 +31,8 @@ export default {
   },
   data () {
     return {
-      hot_category: [],
-      current_cat: '华语',
+      hotCategory: [],
+      currentCat: '华语',
       songList: [],
       extraPrevSongList: [],
       extraNextSongList: [],
@@ -49,22 +49,25 @@ export default {
     // 取出初始歌单列表
     this.changeSongList();
   },
-  beforeCreate () {
-    let that = this;
-    axios
-      .get(this.COMMON.reqBaseUrl + '/playlist/hot')
-      .then(function (response) {
-        let dataArr = response.data.tags;
-        // 取出前五个热门分类
-        that.hot_category = dataArr.slice(0, 5).map(x => x.name);
-      });
+  created () {
+    this.initCate();
   },
   methods: {
+    // 初始化歌单分类
+    initCate: function () {
+      axios
+        .get(this.COMMON.reqBaseUrl + '/playlist/hot')
+        .then((response) => {
+          // 取出前五个热门分类
+          let dataArr = response.data.tags.slice(0, 5);
+          this.hotCategory = dataArr.map(x => x.name);
+        });
+    },
     // 更新歌单分类
     showSongList: function (event) {
       // 过滤空白点击
       if (event.target.tagName.toLowerCase() === 'a') {
-        this.current_cat = event.target.textContent;
+        this.currentCat = event.target.textContent;
       }
     },
     // 根据歌单类型取出列表
